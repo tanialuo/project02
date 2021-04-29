@@ -9,7 +9,7 @@ let introtext;
 
 let canvas;
 
-let videoPlaying = true;
+let videoPlaying = true ;
 
 //boolean to check the status of the button to update in draw
 //you need to create a boolean for each function that uses a
@@ -49,6 +49,9 @@ function setup() {
   textAlign(CENTER);
   //text(tableHome.getString(0,0),windowWidth/2,200, 900, 300);
 
+  vidEN.pause();
+  vidZH.pause();
+
   //using a p tag instead of the text object
   introtext = createP(tableHome.getString(0,0));
   introtext.addClass("introText"); //this class is referenced in the style tag in the index file
@@ -61,7 +64,7 @@ function setup() {
   //funcitons and just use this one.
   contentText = createDiv ('');
   contentText.addClass("contentText");
-  contentText.position(windowWidth/3+50,100);
+  contentText.position(windowWidth/3+50,110);
   contentText.style("width", '500px');
   contentText.hide();
 
@@ -89,17 +92,11 @@ function setup() {
   buttonBack.mousePressed(homePage);
   buttonBack.hide();
 
-  buttonBackRight = createButton ('back to home').size(120,40);
-  buttonBackRight.addClass("contentButton");
-  buttonBackRight.position(windowWidth/3+720,windowHeight-75);
-  buttonBackRight.mousePressed(homePage);
-  buttonBackRight.hide();
 
-
-  buttonPlayVideo = createButton('play');
+  buttonPlayVideo = createButton('pause').size(80,40);
   buttonPlayVideo.mousePressed(playVideoToggle);
   buttonPlayVideo.addClass("contentButton");
-  buttonPlayVideo.position(windowWidth/3+75,windowHeight-75);
+  buttonPlayVideo.position(windowWidth/3+90,windowHeight-100);
   createElement('br');
   buttonPlayVideo.hide();
 
@@ -117,6 +114,11 @@ function setup() {
   buttonFstNo.position(windowWidth/2-250,windowHeight/2+50);
   buttonFstNo.mousePressed(introScd);
   buttonFstNo.style("text-align","left" );
+
+  slider = createSlider(0,1,0.5,0.01);
+  slider.addClass('slider');
+  slider.position(windowWidth*3/2-100,windowHeight-100);
+
 
 
 }
@@ -189,13 +191,14 @@ function homePage(){
   buttonThd.hide();
   introtextThd.hide();
   buttonBack.hide();
-  buttonBackRight.hide();
   buttonNext.hide();
   buttonPrev.hide();
   buttonPlayVideo.hide();
   descriptionText.hide();
   vidEN.hide();
+  vidEN.pause();
   vidZH.hide();
+  vidZH.pause();
 
 
   //background stop
@@ -269,7 +272,6 @@ function homePage(){
   textScd.hide();
   textThd.hide();
   textM.hide();
-  vid.hide();
 
 }
 
@@ -319,6 +321,9 @@ function findingR(){
   fill(100,70,50);
   textSize(25);
   text('Finding Resource',windowWidth/3+50,75);
+  textSize(12);
+  textFont(sourceReg);
+  text('attitude:', windowWidth/3+50,90);
   descriptionText.html(descriptionF);
 
 
@@ -344,7 +349,7 @@ function findingR(){
     contentText.html(table.getString(0,4));
     buttonPrev.hide();
     fill(0,255,0);
-    rect(windowWidth/3+50,80,40,5);
+    rect(windowWidth/3+120,85,40,5);
 
   }
 
@@ -352,14 +357,14 @@ function findingR(){
   if (count == 1){
     contentText.html(table.getString(0,5));
     fill(0,255,0);
-    rect(windowWidth/3+50,80,40,5);
-    print("it changed");
+    rect(windowWidth/3+120,85,40,5);
+    //print("it changed");
   }
 
   if (count == 2){
     contentText.html(table.getString(0,6));
     fill(0,255,0);
-    rect(windowWidth/3+50,80,40,5);
+    rect(windowWidth/3+120,85,40,5);
     buttonNext.hide();
   }
 
@@ -403,6 +408,9 @@ function management(){
   fill(100,70,50);
   textSize(25);
   text('Management',windowWidth/3+50,75);
+  textSize(12);
+  textFont(sourceReg);
+  text('attitude:', windowWidth/3+50,90);
   let descriptionM = "The manager will organize all the materials and distribute them to translators and editors. All the in-process document and final video will get through the manager."
 
   rectMode(CORNER);
@@ -421,8 +429,8 @@ function management(){
 
 
   contentText.html(table.getString(1,4));
-  fill(0,255,0);
-  rect(windowWidth/3+50,80,40,5);
+  fill(255,0,0);
+  rect(windowWidth/3+120,85,40,5);
 
 
 }
@@ -468,6 +476,9 @@ function translation(){
   fill(100,70,50);
   textSize(25);
   text('Translation',windowWidth/3+50,75);
+  textSize(12);
+  textFont(sourceReg);
+  text('attitude:', windowWidth/3+50,90);
   let descriptionT = "The translators will listen and translate the video, then return the text document back to manager for adding caption."
 
   rectMode(CORNER);
@@ -488,8 +499,8 @@ function translation(){
   if (count == 0){
     contentText.html(table.getString(2,4));
     buttonPrev.hide();
-    fill(0,255,0);
-    rect(windowWidth/3+50,80,40,5);
+    fill(255,255,0);
+    rect(windowWidth/3+120,85,40,5);
   }
 
 
@@ -497,7 +508,7 @@ function translation(){
     contentText.html(table.getString(2,5));
     buttonNext.hide();
     fill(0,255,0);
-    rect(windowWidth/3+50,80,40,5);
+    rect(windowWidth/3+120,85,40,5);
   }
 
 
@@ -543,6 +554,9 @@ function captioning(){
   fill(100,70,50);
   textSize(25);
   text('Captioning',windowWidth/3+50,75);
+  textSize(12);
+  textFont(sourceReg);
+  text('attitude:', windowWidth/3+50,90);
   let descriptionC = "The editor will receive the video file and text document from manager, and they will add caption to the video."
 
   rectMode(CORNER);
@@ -563,7 +577,7 @@ function captioning(){
   if (count == 0){
     contentText.html(table.getString(3,4));
     fill(0,255,0);
-    rect(windowWidth/3+50,85,40,5);
+    rect(windowWidth/3+120,85,40,5);
     buttonPrev.hide();
 
   }
@@ -572,7 +586,7 @@ function captioning(){
   if (count == 1){
     contentText.html(table.getString(3,5));
     fill(0,255,0);
-    rect(windowWidth/3+50,85,40,5);
+    rect(windowWidth/3+120,85,40,5);
     buttonNext.hide();
   }
 
@@ -593,7 +607,7 @@ function originV(){
   lineYellow4.hide();
   lineYellow5.hide();
   lineYellow6.hide();
-  buttonBackRight.show();
+  buttonBack.show();
   descriptionText.show();
 
   let descriptionO = "The video introducing the GFW here is an example of a video downloading from YouTube outside of the wall."
@@ -622,7 +636,7 @@ function originV(){
   vidEN.loop();
   vidEN.volume(0);
   vidEN.size(720,480);
-  vidEN.position(windowWidth/3+50,100);
+  vidEN.position(windowWidth/3+50,70);
 
 
 }
@@ -642,7 +656,7 @@ function reuploading(){
   buttonC.hide();
   buttonU.hide();
   buttonO.hide();
-  buttonBackRight.show();
+  buttonBack.show();
   descriptionText.show();
 
   let descriptionR = "The video showing here has been gone through all the processes and ready to be uploaded on to video platform in China. It is a product of team effort."
@@ -671,9 +685,9 @@ function reuploading(){
   buttonPlayVideo.show();
   vidZH.show();
   vidZH.loop();
-  vidZH.volume(0);
   vidZH.size(720,480);
-  vidZH.position(windowWidth/3+50,100);
+  vidZH.volume(0);
+  vidZH.position(windowWidth/3+50,70);
 
 
   buttonR.hide();
@@ -697,22 +711,23 @@ function prev(){
 function playVideoToggle(){
   if(videoPlaying){
     vidEN.pause()
-    buttonPlayVideo.html('pause');
-    vidEN.volume(0);
+    buttonPlayVideo.html('play');
+
   }
   else{
     vidEN.play();
-    buttonPlayVideo.html('play');
+    buttonPlayVideo.html('pause');
+    vidEN.volume(0);
 
   }
 
   if(videoPlaying){
-    vidZH.pause()
-    buttonPlayVideo.html('pause');
+    vidZH.pause();
+    buttonPlayVideo.html('play');
   }
   else{
     vidZH.play();
-    buttonPlayVideo.html('play');
+    buttonPlayVideo.html('pause');
 
   }
 
